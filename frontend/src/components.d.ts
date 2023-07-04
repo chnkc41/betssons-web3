@@ -14,8 +14,14 @@ export namespace Components {
         "last": string;
         "middle": string;
     }
+    interface NewExpense {
+    }
     interface NoData {
         "colSpan": number;
+    }
+    interface StackedChart {
+        "first": string;
+        "series": any[];
     }
     interface TableList {
         "colSpan": number;
@@ -36,11 +42,23 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLNewExpenseElement extends Components.NewExpense, HTMLStencilElement {
+    }
+    var HTMLNewExpenseElement: {
+        prototype: HTMLNewExpenseElement;
+        new (): HTMLNewExpenseElement;
+    };
     interface HTMLNoDataElement extends Components.NoData, HTMLStencilElement {
     }
     var HTMLNoDataElement: {
         prototype: HTMLNoDataElement;
         new (): HTMLNoDataElement;
+    };
+    interface HTMLStackedChartElement extends Components.StackedChart, HTMLStencilElement {
+    }
+    var HTMLStackedChartElement: {
+        prototype: HTMLStackedChartElement;
+        new (): HTMLStackedChartElement;
     };
     interface HTMLTableListElement extends Components.TableList, HTMLStencilElement {
     }
@@ -51,7 +69,9 @@ declare global {
     interface HTMLElementTagNameMap {
         "dashboard-layout": HTMLDashboardLayoutElement;
         "my-component": HTMLMyComponentElement;
+        "new-expense": HTMLNewExpenseElement;
         "no-data": HTMLNoDataElement;
+        "stacked-chart": HTMLStackedChartElement;
         "table-list": HTMLTableListElement;
     }
 }
@@ -64,8 +84,14 @@ declare namespace LocalJSX {
         "last"?: string;
         "middle"?: string;
     }
+    interface NewExpense {
+    }
     interface NoData {
         "colSpan"?: number;
+    }
+    interface StackedChart {
+        "first"?: string;
+        "series"?: any[];
     }
     interface TableList {
         "colSpan"?: number;
@@ -75,7 +101,9 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "dashboard-layout": DashboardLayout;
         "my-component": MyComponent;
+        "new-expense": NewExpense;
         "no-data": NoData;
+        "stacked-chart": StackedChart;
         "table-list": TableList;
     }
 }
@@ -85,7 +113,9 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "dashboard-layout": LocalJSX.DashboardLayout & JSXBase.HTMLAttributes<HTMLDashboardLayoutElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "new-expense": LocalJSX.NewExpense & JSXBase.HTMLAttributes<HTMLNewExpenseElement>;
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;
+            "stacked-chart": LocalJSX.StackedChart & JSXBase.HTMLAttributes<HTMLStackedChartElement>;
             "table-list": LocalJSX.TableList & JSXBase.HTMLAttributes<HTMLTableListElement>;
         }
     }

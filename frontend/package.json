@@ -27,7 +27,9 @@
     "watch": "npx tailwindcss -i ./src/directives.css -o ./www/tailwind.css --watch"
   },
   "dependencies": {
-    "@stencil/core": "^4.0.0"
+    "@stencil/core": "^4.0.0",
+    "apexcharts": "^3.41.0",
+    "stencil-apexcharts": "^2.3.0"
   },
   "devDependencies": {
     "@stencil/postcss": "^2.1.0",
