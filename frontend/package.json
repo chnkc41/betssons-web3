@@ -23,17 +23,24 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "watch": "npx tailwindcss -i ./src/directives.css -o ./www/tailwind.css --watch"
   },
   "dependencies": {
     "@stencil/core": "^4.0.0"
   },
   "devDependencies": {
+    "@stencil/postcss": "^2.1.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.11",
+    "autoprefixer": "^10.4.14",
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
-    "puppeteer": "^20.7.3"
+    "postcss-import": "^15.1.0",
+    "puppeteer": "^20.7.3",
+    "stencil-tailwind-plugin": "^1.8.0",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.1.6"
   },
   "license": "MIT"
 }

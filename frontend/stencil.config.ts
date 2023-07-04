@@ -1,7 +1,9 @@
 import { Config } from '@stencil/core';
+import {postcss} from '@stencil/postcss';
+import autoprefixer from 'autoprefixer';
 
 export const config: Config = {
-  namespace: 'betssons-web3',
+  namespace: 'betssons-web3',  
   outputTargets: [
     {
       type: 'dist',
@@ -15,10 +17,19 @@ export const config: Config = {
     },
     {
       type: 'www',
-      serviceWorker: null, // disable service workers
+      serviceWorker: null,
     },
   ],
+  plugins : [
+    postcss({
+      plugins: [
+        require("postcss-import"),
+        require("tailwindcss")("./tailwind.config.js"),
+        autoprefixer()
+      ]
+    })
+  ],
   testing: {
-    browserHeadless: "new",
+    browserHeadless: 'new',
   },
 };

@@ -2,26 +2,37 @@ import { Component, Host, Prop, State, h } from '@stencil/core';
 
 @Component({
   tag: 'table-list',
-  styleUrl: 'table-list.css',
+  styleUrl: '../../tailwind.css',
   shadow: true,
 })
 export class TableList {
   @Prop({ mutable: true }) userName: string;
-  @Prop() list: string[] = [];
+  @Prop({ mutable: true }) list: string[] = [];
   @Prop({ mutable: true }) colSpan: number = Object.keys(this.list?.length > 0 && this.list[0]).length + 1;
 
-  componentDidLoad() {
+  componentWillLoad() {
     // this.APIData = 'Loading...';
-    fetch('http://localhost:3010/devices')
+    fetch('http://localhost:5000/users')
       .then(response => response.json())
       .then(parsedRes => {
-        console.log(parsedRes);
-        this.list = parsedRes;
+        console.log(parsedRes.users);
+        this.list = parsedRes.users;
       })
       .catch(ex => console.log(ex));
   }
 
+  updateItem(row) {
+    console.log(row);
+  }
+
+  onDeleteClick(row) {
+    console.log(row);
+  }
+
   renderTableRows = () => {
+    {
+      console.log(this.list);
+    }
     return this.list?.map((row, index) => {
       const filteredByKey = Object.fromEntries(Object.entries(row).filter(([key, value]) => key !== 'relatedId'));
 
@@ -56,29 +67,18 @@ export class TableList {
               )
             );
           })}
-          {/* <td class="text-right" width={'100'}>
+          <td class="text-right">
             <span class="flex text-xl ">
-              {updateItem && (
-                <Button size="sm" class='btn-basic mr-3 md:mr-3 '>
-                  <BiEditAlt class="text-green-700" onClick={() => updateItem(row)} />
-                </Button>
-              )}
+              <button class="btn-basic mr-3 md:mr-3  text-green-700" onClick={() => this.updateItem(row)}>
+                Edit
+              </button>
 
-              {onDeleteClick && (
-                <Button size="sm" class='btn-basic '>
-                <BiTrash
-                  class="text-red-700 "
-                  onClick={() =>
-                    onDeleteClick({
-                      id: row.id,
-                      name: row.name
-                    })
-                  }
-                />
-                </Button>
-              )}
+              <button class="btn-basic text-red-700" onClick={() => this.onDeleteClick(row)}>
+                {' '}
+                Delete{' '}
+              </button>
             </span>
-          </td> */}
+          </td>
         </tr>
       );
     });
@@ -87,7 +87,9 @@ export class TableList {
   render() {
     return (
       <Host>
-        <tbody>{this.list ? this.renderTableRows() : <no-data colSpan={this.colSpan} />}</tbody>
+        <table>
+          <tbody>{this.list ? this.renderTableRows() : <no-data colSpan={this.colSpan} />}</tbody>
+        </table>
       </Host>
     );
   }
