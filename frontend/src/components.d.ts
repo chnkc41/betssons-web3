@@ -51,11 +51,13 @@ export namespace Components {
     }
     interface StackedChart {
         "first": string;
+        "options": any;
         "series": any[];
     }
     interface TableList {
         "colSpan": number;
         "list": string[];
+        "listTitles": string[];
         "userName": string;
     }
 }
@@ -174,11 +176,13 @@ declare namespace LocalJSX {
     }
     interface StackedChart {
         "first"?: string;
+        "options"?: any;
         "series"?: any[];
     }
     interface TableList {
         "colSpan"?: number;
         "list"?: string[];
+        "listTitles"?: string[];
         "onDeleteItem"?: (event: TableListCustomEvent<any>) => void;
         "onUpdateLinkItem"?: (event: TableListCustomEvent<any>) => void;
         "userName"?: string;

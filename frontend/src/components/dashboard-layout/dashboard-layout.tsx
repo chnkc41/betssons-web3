@@ -1,8 +1,9 @@
-import { Component, Host, Prop, Listen, h, State } from '@stencil/core';
-import { urls } from '../../constants/constant';
+import { Component, Host, Prop, Listen, h, State, Watch } from '@stencil/core';
+import { urls, listTitles } from '../../constants/constant';
 import axios from 'axios';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import 'stencil-apexcharts';
 
 @Component({
   tag: 'dashboard-layout',
@@ -11,8 +12,22 @@ import 'toastify-js/src/toastify.css';
 })
 export class DashboardLayout {
   @State() apiUrl: string = urls.URL_EXPENSES;
+  @State() themeMode: boolean = true;
   @State() list: string[] = [];
   @State() updatingData: any = null;
+  @State() newItem: any = null;
+
+  // @Watch('newItem')
+  // watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
+
+  //   console.log("newValue Watch ")
+  //   console.log(newValue)
+
+  //   // const oldList: string[] = this.list;
+  //   // const newList: string[] = [...oldList, newValue];
+  //   // this.list = newList;
+
+  // }
 
   componentWillLoad() {
     // this.APIData = 'Loading...';
@@ -33,18 +48,17 @@ export class DashboardLayout {
   // Add & update item
   @Listen('updateListItem', { target: 'body' })
   onSaveClick(event: CustomEvent<any>) {
+    const newValue = event.detail;
 
-    console.log(event.detail)
-    
-    const newItem = event.detail;
     const oldList: string[] = this.list;
-    const newList: string[] = [...oldList, newItem];
+    const newList: string[] = [...oldList, newValue];
     this.list = newList;
   }
 
   // Delete Item
   @Listen('deleteItem', { target: 'body' })
   onDeleteClick(event: CustomEvent<any>) {
+    console.log(event.detail);
     if (!event.detail.id) {
       return;
     }
@@ -102,47 +116,54 @@ export class DashboardLayout {
     }).showToast();
   }
 
+  changeMode() {
+    console.log('changeMode');
+  }
+
   render() {
     return (
       <div>
         <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
           <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-            <div class="flex h-16 shrink-0 items-center">
+            <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
               <img
-                class="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                alt="Your Company"
+                class="h-14 inline-block w-auto"
+                src="https://www.betssongroup.com/wp-content/uploads/2023/01/betsson_logo_60.png"
+                alt=" Betsson Group"
               />
             </div>
-            <div class="flex flex-1 flex-col"> 
+            <div class="flex flex-1 flex-col">
               <new-expense updatingData={this.updatingData}></new-expense>
             </div>
           </div>
         </div>
 
         <div class="lg:pl-96">
-          <button type="button" class="-m-2.5 p-2.5 text-gray-700 ">
-            <span class="sr-only">Open sidebar</span>
-            <svg
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
-          </button>
-
-          <main class="p-10 border border-red-500">
-            <div class="px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center">
-              <stacked-chart></stacked-chart>
-              <table-list list={this.list}></table-list>
+          <main class="p-5 border">
+            <div class="flex items-center justify-between border-b mb-5 pb-5">
+              <button-field
+                content={'Add New'}
+                type="button"
+                btnSize="md"
+                className="btn-primary ml-5"
+              ></button-field>
+              <div>
+                <box-icon
+                  onClick={this.changeMode}
+                  name={this.themeMode ? 'sun' : 'moon'}
+                  color={this.themeMode ? 'white' : 'black'}
+                  class="cursor-pointer"
+                ></box-icon>
+                Toggle
+              </div>
+            </div>
+            <div class="px-4 sm:px-6 lg:px-8 my-4  ">
+              <div>
+                <table-list list={this.list} listTitles={listTitles}></table-list>
+              </div>
+              <div class="mt-10">
+                <stacked-chart></stacked-chart>
+              </div>
             </div>
           </main>
         </div>

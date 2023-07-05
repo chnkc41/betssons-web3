@@ -46,6 +46,7 @@ export class NewExpense {
 
   onFormSubmit = async (updatingData, e) => {
     e.preventDefault();
+
     const obj = {
       id: this.formModel.id.trim() === '',
       name: this.formModel.name.trim() === '',
@@ -60,7 +61,7 @@ export class NewExpense {
       this.toastify('error', 'Please fill the required areas!');
       return;
     } else {
-      updatingData ? this.onFormSave(updatingData) : this.onFormSave(null);
+      updatingData ? await this.onFormSave(updatingData) : await this.onFormSave(null);
     }
   };
 
@@ -73,7 +74,7 @@ export class NewExpense {
       );
 
       // this.updatingData ? (this.updatingData = null) : '';
-      this.formModel.id = String(Math.floor(Math.random() * 99999999));
+      this.formModel.id = String(Math.floor(Math.random() * 999999));
 
       if (!success) {
         this.toastify(

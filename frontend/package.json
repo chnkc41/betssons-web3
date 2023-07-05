@@ -24,7 +24,7 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "watch": "npx tailwindcss -i ./src/directives.css -o ./www/tailwind.css --watch"
+    "watch": "npx tailwindcss -i src/assets/tailwind.css -o src/assets/style.css -w"
   },
   "dependencies": {
     "@stencil/core": "^4.0.0",

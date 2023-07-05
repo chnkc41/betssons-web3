@@ -3,59 +3,61 @@
 @tailwind utilities;
 
 /************************************ Base *************************************/
-@layer base {
-  *::-webkit-scrollbar {
-    @apply w-2 h-2 bg-gray-200 dark:bg-theme_background_dark;
-  }
-  *::-webkit-scrollbar-track {
-    @apply bg-gray-200 dark:bg-theme_background_dark border border-slate-100;
-  }
-  *::-webkit-scrollbar-button {
-    display: none;
-  }
-  *::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 dark:bg-gray-600 rounded-xl;
-  }
 
-  body {
-    @apply font-sans text-gray-700 dark:text-gray-300 text-sm bg-gray-50 dark:bg-theme_background_dark;
-  }
-
-  /* Table */
-  table {
-    @apply min-w-full divide-y divide-gray-300;
-  }
-
-  table thead tr th {
-    @apply capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell;
-  }
-
-  table thead tr th:first-of-type {
-    @apply py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 table-cell;
-  }
-
-  table thead tr th:last-of-type {
-    @apply relative py-3.5 pl-3 pr-4 sm:pr-0 table-cell;
-  }
-  /* Table Body */
-  table tbody {
-    @apply divide-y divide-gray-200 bg-white;
-  }
-
-  /* hidden */
-  table tbody tr td {
-    @apply block py-1.5 px-3 md:py-4 text-sm text-gray-500  md:table-cell;
-  }
-
-  table tbody tr td:first-of-type {
-    @apply w-full md:w-auto text-sm font-medium text-gray-900 md:pl-0 uppercase;
-  }
-
-  table tbody tr td:last-of-type {
-    @apply py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 table-cell;
-  }
+*::-webkit-scrollbar {
+  @apply w-2 h-2 bg-gray-200 dark:bg-theme_background_dark;
+}
+*::-webkit-scrollbar-track {
+  @apply bg-gray-200 dark:bg-theme_background_dark border border-slate-100;
+}
+*::-webkit-scrollbar-button {
+  display: none;
+}
+*::-webkit-scrollbar-thumb {
+  @apply bg-theme_background_dark dark:bg-gray-600 rounded-xl;
 }
 
+body {
+  @apply font-sans text-gray-700 dark:text-gray-300 text-sm bg-gray-50 dark:bg-theme_background_dark;
+}
+
+/* Table */
+table {
+  @apply min-w-full divide-y divide-gray-300;
+}
+
+table thead tr th {
+  @apply capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell;
+}
+
+table thead tr th:first-of-type {
+  @apply py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 table-cell;
+}
+
+table thead tr th:last-of-type {
+  @apply relative py-3.5 pl-3 pr-4 sm:pr-0 table-cell;
+}
+/* Table Body */
+table tbody {
+  @apply divide-y divide-gray-200 bg-white;
+}
+
+/* hidden */
+table tbody tr td {
+  @apply block py-1.5 px-3 md:py-4 text-sm text-gray-500  md:table-cell;
+}
+
+table tbody tr td:first-of-type {
+  @apply w-full md:w-auto text-sm font-medium text-gray-900 md:pl-0 uppercase;
+}
+
+table tbody tr td:last-of-type {
+  @apply py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 table-cell;
+}
+
+table tbody tr td:last-of-type {
+  @apply w-32
+}
 /************************************ Layout ***********************************/
 .layout {
   @apply h-screen flex overflow-hidden dark:bg-theme_background_dark; /*bg-custom-gradient dark:bg-custom-gradient-dark bg-cover bg-no-repeat bg-top*/
@@ -132,7 +134,6 @@
   @apply sm:mr-2 w-56 text-center border border-indigo-600 rounded-md ring-0 focus:ring-0 cursor-pointer;
 }
 
-
 /* Buttons */
 .btn {
   @apply inline-flex items-center rounded border text-xs font-medium  shadow-sm  focus:outline-none focus:ring-2 whitespace-nowrap;
@@ -153,4 +154,3 @@
 .btn-icon {
   @apply !px-2.5 !py-1.5 rounded-full;
 }
-
