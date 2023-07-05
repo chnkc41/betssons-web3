@@ -1,5 +1,4 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
-import ApexCharts from 'apexcharts';
+import { Component, Host, Prop, State, h } from '@stencil/core'; 
 
 @Component({
   tag: 'stacked-chart',
@@ -11,122 +10,116 @@ export class StackedChart {
   @Prop() series: any[] = [
     {
       name: 'PRODUCT A',
-      data: [31, 40, 28, 51, 42, 109, 100],
+      data: [31, 40, 28, 51, 42, 109, 100,  28, 51],
     },
     {
       name: 'PRODUCT B',
-      data: [11, 32, 45, 32, 34, 52, 41],
+      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
+    },
+    {
+      name: 'PRODUCT C',
+      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
     },
   ];
 
-  componentDidLoad() {
-    let options = {
-      series: this.series,
-      color: ['#6ab04c', '#2980b9'],
-      chart: {
-        background: 'transparent',
-        type: 'area', //bar, line
-        height: 350,
-        stacked: true,
-        toolbar: {
-          show: true,
-        },
-        zoom: {
-          enabled: true,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0,
-            },
-          },
-        },
-      ],
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          borderRadius: 10,
-          dataLabels: {
-            total: {
-              enabled: true,
-              style: {
-                fontSize: '13px',
-                fontWeight: 900,
-              },
-            },
-          },
-        },
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      },
-      legend: {
-        position: 'top',
-      },
-      grid: {
+  @Prop() options: any = {
+    series: this.series,
+    color: ['#6ab04c', '#2980b9'],
+    chart: {
+      background: 'transparent',
+      type: 'area', //bar, line
+      height: 350,
+      stacked: true,
+      toolbar: {
         show: true,
       },
-      title: {
-        text: 'Total Production',
-        align: 'left',
-        margin: 10,
-        offsetX: 0,
-        offsetY: 0,
-        floating: false,
-        style: {
-          fontSize: '14px',
-          fontWeight: 'bold',
-          //   fontFamily:  undefined,
-          color: '#263238',
+      zoom: {
+        enabled: true,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: 'smooth',
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: 'bottom',
+            offsetX: -10,
+            offsetY: 0,
+          },
         },
       },
-      annotations: {
-        yaxis: [
-          {
-            y: 60,
-            borderColor: '#F00',
-            label: {
-              borderColor: '#F00',
-              style: {
-                color: '#fff',
-                background: '#F00',
-              },
-              text: 'Target',
+    ],
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: true,
+            style: {
+              fontSize: '13px',
+              fontWeight: 900,
             },
           },
-        ],
+        },
       },
-    };
-
-    this.addElement('div', 'chart');
-
-    let chart = new ApexCharts(document.querySelector('#chart'), options);
-
-    return chart.render();
-  }
-
-  addElement(element, id) {
-    // create a new div element
-    const newDiv = document.createElement(element);
-    newDiv.setAttribute('id', id);
-    newDiv.setAttribute('class', 'card full-height sm:p-7');
-
-    const currentDiv = document.getElementById(id);
-    document.body.insertBefore(newDiv, currentDiv);
-  }
+    },
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+    },
+    legend: {
+      position: 'top',
+    },
+    grid: {
+      show: true,
+    },
+    title: {
+      text: 'Total Production',
+      align: 'left',
+      margin: 10,
+      offsetX: 0,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize: '14px',
+        fontWeight: 'bold',
+        //   fontFamily:  undefined,
+        color: '#263238',
+      },
+    },
+    // annotations: {
+    //   yaxis: [
+    //     {
+    //       y: 60,
+    //       borderColor: '#F00',
+    //       label: {
+    //         borderColor: '#F00',
+    //         style: {
+    //           color: '#fff',
+    //           background: '#F00',
+    //         },
+    //         text: 'Target',
+    //       },
+    //     },
+    //   ],
+    // },
+  };
 
   render() {
-    return <div class="" id="chart1"></div>;
+    return (
+      <div>
+        <apex-chart
+          type="bar"
+          series={this.series}
+          options={this.options}
+        />
+      </div>
+    );
   }
 }
