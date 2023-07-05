@@ -40,7 +40,7 @@ export class NewExpense {
   @Watch('updatingData')
   watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
     Object.keys(this.formModel).forEach(item => {
-      this.formModel[item] = newValue[item];
+      this.formModel[item] = this.updatingData === null ? '' : newValue[item];
     });
   }
 
@@ -73,7 +73,7 @@ export class NewExpense {
         updatingData?.id,
       );
 
-      // this.updatingData ? (this.updatingData = null) : '';
+      this.updatingData = null;
       this.formModel.id = String(Math.floor(Math.random() * 999999));
 
       if (!success) {
