@@ -1,6 +1,5 @@
 import { Component, Host, Prop, State, Event, EventEmitter, h } from '@stencil/core';
-import 'boxicons';
-import { urls } from '../../constants/constant';
+import 'boxicons'; 
 @Component({
   tag: 'table-list',
   styleUrl: '../../tailwind.css',
@@ -9,12 +8,9 @@ import { urls } from '../../constants/constant';
 export class TableList {
   @Prop({ mutable: true }) userName: string;
   @Prop({ mutable: true }) list: string[] = [];
+  @Prop({ mutable: true }) listTitles: string[] = [];
   @Prop({ mutable: true }) colSpan: number =
     Object.keys(this.list?.length > 0 && this.list[0]).length + 1;
-
-  // updateItem(row) {
-  //   console.log(row);
-  // }
 
   @Event({ bubbles: true, composed: true }) updateLinkItem: EventEmitter<any>;
   onUpdateLinkClick(row: any) {
@@ -25,6 +21,16 @@ export class TableList {
   onDeleteLinkClick(row: any) {
     this.deleteItem.emit(row);
   }
+
+  renderTableTitles = () => {
+    return (
+      <tr>
+        {this.listTitles.map(item => {
+          return <td> {item} </td>;
+        })}
+      </tr>
+    );
+  };
 
   renderTableRows = () => {
     return this.list?.map((row, index) => {
@@ -43,22 +49,7 @@ export class TableList {
                   // onClick={() => handleClick(column)}
                   //  class={` ${column.visible ? 'visible' : 'hidden'}`}
                 >
-                  <span class="flex items-center cursor-pointer">
-                    {typeof column === 'boolean' ? (
-                      column === true ? (
-                        <p class="text-green-600">active</p>
-                      ) : (
-                        <p class="text-red-600">passive</p>
-                      )
-                    ) : (
-                      <span>
-                        {/* <span class="inline md:hidden">
-                          <b>{titleList[index - 1]} : </b> {column}
-                        </span> */}
-                        <span class="hidden md:inline">{column}</span>
-                      </span>
-                    )}
-                  </span>
+                  {column}
                 </td>
               )
             );
@@ -89,6 +80,9 @@ export class TableList {
     return (
       <Host>
         <table>
+          <thead>
+            {this.listTitles ? this.renderTableTitles() : <no-data colSpan={this.colSpan} />}
+          </thead>
           <tbody>{this.list ? this.renderTableRows() : <no-data colSpan={this.colSpan} />}</tbody>
         </table>
       </Host>

@@ -40,3 +40,5 @@ export const initialExpensesErrorForm = {
   amount: false,
   date: false,
 };
+
+export const listTitles = ['Name', 'Description', 'Amount', 'Date'];
