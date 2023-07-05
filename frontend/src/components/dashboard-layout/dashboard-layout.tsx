@@ -1,4 +1,8 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, Listen, h, State } from '@stencil/core';
+import { urls } from '../../constants/constant';
+import axios from 'axios';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 @Component({
   tag: 'dashboard-layout',
@@ -6,10 +10,96 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class DashboardLayout {
-  @Prop({ mutable: true }) userName: string;
+  @State() apiUrl: string = urls.URL_EXPENSES;
+  @State() list: string[] = [];
+  @State() updatingData: any = null;
 
-  changeState() {
-    this.userName = this.userName === 'Murat' ? 'Cihan' : 'Murat';
+  componentWillLoad() {
+    // this.APIData = 'Loading...';
+    fetch(urls.URL_EXPENSES)
+      .then(response => response.json())
+      .then(parsedRes => {
+        this.list = parsedRes.expenses;
+      })
+      .catch(ex => console.log(ex));
+  }
+
+  // Get Updating data from table list
+  @Listen('updateLinkItem', { target: 'body' })
+  updateForm(event: CustomEvent<any>) {
+    this.updatingData = event.detail;
+  }
+
+  // Add & update item
+  @Listen('updateListItem', { target: 'body' })
+  onSaveClick(event: CustomEvent<any>) {
+
+    console.log(event.detail)
+    
+    const newItem = event.detail;
+    const oldList: string[] = this.list;
+    const newList: string[] = [...oldList, newItem];
+    this.list = newList;
+  }
+
+  // Delete Item
+  @Listen('deleteItem', { target: 'body' })
+  onDeleteClick(event: CustomEvent<any>) {
+    if (!event.detail.id) {
+      return;
+    }
+
+    const itemId = event.detail.id;
+    const itemName = event.detail.name;
+
+    this.sendDeleteRequest(this.apiUrl, itemId).then(
+      () => {
+        const itemList = this.list.filter(d => d['id'] !== itemId);
+        this.list = itemList;
+        this.toastify('', `${itemName} was deleted.`);
+      },
+      err => {
+        console.log(err);
+        this.toastify('error', 'There was a problem. Please try again!');
+      },
+    );
+  }
+
+  sendDeleteRequest = async (apiUrl, id) => {
+    try {
+      const result = await axios.delete(`${apiUrl}/${id}`, {
+        withCredentials: false,
+        data: {},
+        headers: { 'content-type': 'application/json; charset=utf-8' },
+      });
+
+      void result;
+
+      return { success: true };
+    } catch (ex) {
+      console.log(ex);
+      return { success: false };
+    }
+  };
+
+  // Toast
+  toastify(messageType, message) {
+    Toastify({
+      text: message,
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: 'top',
+      position: 'right',
+      stopOnFocus: true,
+      style: {
+        background:
+          messageType === 'error'
+            ? 'linear-gradient(to right, #cf3732, #b32f2b)'
+            : 'linear-gradient(to right, #73a626, #3c5e09)',
+      },
+      onClick: function () {}, // Callback after click
+    }).showToast();
   }
 
   render() {
@@ -24,8 +114,8 @@ export class DashboardLayout {
                 alt="Your Company"
               />
             </div>
-            <div class="flex flex-1 flex-col">
-              <new-expense></new-expense>
+            <div class="flex flex-1 flex-col"> 
+              <new-expense updatingData={this.updatingData}></new-expense>
             </div>
           </div>
         </div>
@@ -52,7 +142,7 @@ export class DashboardLayout {
           <main class="p-10 border border-red-500">
             <div class="px-4 sm:px-6 lg:px-8 flex flex-wrap justify-center">
               <stacked-chart></stacked-chart>
-              <table-list></table-list>
+              <table-list list={this.list}></table-list>
             </div>
           </main>
         </div>

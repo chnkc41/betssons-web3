@@ -26,7 +26,7 @@ export const CONTROL_SIZES = {
 // Expenses
 
 export const initialExpensesForm = {
-  id: '1',
+  id: '',
   name: '',
   description: '',
   amount: '',
@@ -34,6 +34,7 @@ export const initialExpensesForm = {
 };
 
 export const initialExpensesErrorForm = {
+  id: false,
   name: false,
   description: false,
   amount: false,

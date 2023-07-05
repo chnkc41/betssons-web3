@@ -19,7 +19,6 @@ export namespace Components {
         "type": string;
     }
     interface DashboardLayout {
-        "userName": string;
     }
     interface InputField {
         "autoFocus": boolean;
@@ -39,15 +38,13 @@ export namespace Components {
         "type": string;
         "value": string;
     }
-    interface LayoutSidebar {
-    }
     interface MyComponent {
         "first": string;
         "last": string;
         "middle": string;
     }
     interface NewExpense {
-        "updatingData": boolean;
+        "updatingData": any;
     }
     interface NoData {
         "colSpan": number;
@@ -61,6 +58,14 @@ export namespace Components {
         "list": string[];
         "userName": string;
     }
+}
+export interface NewExpenseCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLNewExpenseElement;
+}
+export interface TableListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTableListElement;
 }
 declare global {
     interface HTMLButtonFieldElement extends Components.ButtonField, HTMLStencilElement {
@@ -80,12 +85,6 @@ declare global {
     var HTMLInputFieldElement: {
         prototype: HTMLInputFieldElement;
         new (): HTMLInputFieldElement;
-    };
-    interface HTMLLayoutSidebarElement extends Components.LayoutSidebar, HTMLStencilElement {
-    }
-    var HTMLLayoutSidebarElement: {
-        prototype: HTMLLayoutSidebarElement;
-        new (): HTMLLayoutSidebarElement;
     };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
@@ -121,7 +120,6 @@ declare global {
         "button-field": HTMLButtonFieldElement;
         "dashboard-layout": HTMLDashboardLayoutElement;
         "input-field": HTMLInputFieldElement;
-        "layout-sidebar": HTMLLayoutSidebarElement;
         "my-component": HTMLMyComponentElement;
         "new-expense": HTMLNewExpenseElement;
         "no-data": HTMLNoDataElement;
@@ -143,7 +141,6 @@ declare namespace LocalJSX {
         "type"?: string;
     }
     interface DashboardLayout {
-        "userName"?: string;
     }
     interface InputField {
         "autoFocus"?: boolean;
@@ -163,15 +160,14 @@ declare namespace LocalJSX {
         "type"?: string;
         "value"?: string;
     }
-    interface LayoutSidebar {
-    }
     interface MyComponent {
         "first"?: string;
         "last"?: string;
         "middle"?: string;
     }
     interface NewExpense {
-        "updatingData"?: boolean;
+        "onUpdateListItem"?: (event: NewExpenseCustomEvent<any>) => void;
+        "updatingData"?: any;
     }
     interface NoData {
         "colSpan"?: number;
@@ -183,13 +179,14 @@ declare namespace LocalJSX {
     interface TableList {
         "colSpan"?: number;
         "list"?: string[];
+        "onDeleteItem"?: (event: TableListCustomEvent<any>) => void;
+        "onUpdateLinkItem"?: (event: TableListCustomEvent<any>) => void;
         "userName"?: string;
     }
     interface IntrinsicElements {
         "button-field": ButtonField;
         "dashboard-layout": DashboardLayout;
         "input-field": InputField;
-        "layout-sidebar": LayoutSidebar;
         "my-component": MyComponent;
         "new-expense": NewExpense;
         "no-data": NoData;
@@ -204,7 +201,6 @@ declare module "@stencil/core" {
             "button-field": LocalJSX.ButtonField & JSXBase.HTMLAttributes<HTMLButtonFieldElement>;
             "dashboard-layout": LocalJSX.DashboardLayout & JSXBase.HTMLAttributes<HTMLDashboardLayoutElement>;
             "input-field": LocalJSX.InputField & JSXBase.HTMLAttributes<HTMLInputFieldElement>;
-            "layout-sidebar": LocalJSX.LayoutSidebar & JSXBase.HTMLAttributes<HTMLLayoutSidebarElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "new-expense": LocalJSX.NewExpense & JSXBase.HTMLAttributes<HTMLNewExpenseElement>;
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;

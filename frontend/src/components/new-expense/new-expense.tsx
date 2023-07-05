@@ -1,8 +1,12 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
 import { urls, initialExpensesForm, initialExpensesErrorForm } from '../../constants/constant';
 import axios from 'axios';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+
+export type NumberContainer = {
+  val: number;
+};
 
 @Component({
   tag: 'new-expense',
@@ -10,17 +14,18 @@ import 'toastify-js/src/toastify.css';
   shadow: true,
 })
 export class NewExpense {
-  @Prop({ mutable: true }) updatingData: boolean = false;
+  @Prop({ mutable: true }) updatingData: any;
   @State() apiUrl: string = urls.URL_EXPENSES;
   // @State() formModel: object = { name: '', expense: '' };
   @State() formModel: {
-    id: number;
+    id: string;
     name: string;
     description: string;
     amount: string;
     date: string;
   } = initialExpensesForm;
   @State() formErrorModel: {
+    id: boolean;
     name: boolean;
     description: boolean;
     amount: boolean;
@@ -28,12 +33,21 @@ export class NewExpense {
   } = initialExpensesErrorForm;
 
   componentDidLoad() {
-    this.formModel.id = Math.floor(Math.random() * 99999999);
+    console.log(this.updatingData);
+    this.formModel.id = String(Math.floor(Math.random() * 99999999));
+  }
+
+  @Watch('updatingData')
+  watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
+    Object.keys(this.formModel).forEach(item => {
+      this.formModel[item] = newValue[item];
+    });
   }
 
   onFormSubmit = async (updatingData, e) => {
     e.preventDefault();
     const obj = {
+      id: this.formModel.id.trim() === '',
       name: this.formModel.name.trim() === '',
       description: this.formModel.description.trim() === '',
       amount: this.formModel.amount.trim() === '',
@@ -58,6 +72,9 @@ export class NewExpense {
         updatingData?.id,
       );
 
+      // this.updatingData ? (this.updatingData = null) : '';
+      this.formModel.id = String(Math.floor(Math.random() * 99999999));
+
       if (!success) {
         this.toastify(
           'error',
@@ -67,6 +84,7 @@ export class NewExpense {
         );
         return;
       } else {
+        this.sendUpdatedData(this.formModel);
         updatingData
           ? this.toastify('', `${updatingData?.name} updated`)
           : this.toastify('', 'New data added');
@@ -94,9 +112,6 @@ export class NewExpense {
               headers: { 'content-type': 'application/json; charset=utf-8' },
             });
 
-      console.log(result);
-      console.log(result.data);
-
       if (result && result.data && result.status === 200) {
         return { success: true };
       }
@@ -108,8 +123,9 @@ export class NewExpense {
     }
   };
 
-  clearForm() {
-    this.formModel = initialExpensesForm;
+  @Event({ bubbles: true, composed: true }) updateListItem: EventEmitter<any>;
+  sendUpdatedData(item: any) {
+    this.updateListItem.emit(item);
   }
 
   //Change Input
@@ -158,9 +174,6 @@ export class NewExpense {
                   required={true}
                   value={this.formModel.name}
                   onChange={(e: any) => {
-                    console.log(e);
-                    // const name = e.target.name;
-                    // this.formModel[name] = e.target.value
                     this.onChangeInput(e);
                   }}
                 />
@@ -202,7 +215,6 @@ export class NewExpense {
                   required={true}
                   value={this.formModel.date}
                   onChange={(e: any) => {
-                    console.log(e.target.value);
                     this.onChangeInput(e);
                   }}
                 />
@@ -210,15 +222,8 @@ export class NewExpense {
                 <div class="flex justify-center">
                   <button-field
                     type="button"
-                    content="Clear"
-                    class="btn-basic"
-                    onClick={() => this.clearForm()}
-                  ></button-field>
-
-                  <button-field
-                    type="button"
                     content={this.updatingData ? 'Update' : 'Save'}
-                    class="btn-primary ml-5 rounded-md"
+                    class="btn-primary rounded-md"
                     onClick={(e: any) => this.onFormSubmit(this.updatingData, e)}
                   ></button-field>
                 </div>

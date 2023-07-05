@@ -1,6 +1,6 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
+import { Component, Host, Prop, State, Event, EventEmitter, h } from '@stencil/core';
 import 'boxicons';
-import {urls} from "../../constants/constant"
+import { urls } from '../../constants/constant';
 @Component({
   tag: 'table-list',
   styleUrl: '../../tailwind.css',
@@ -12,23 +12,18 @@ export class TableList {
   @Prop({ mutable: true }) colSpan: number =
     Object.keys(this.list?.length > 0 && this.list[0]).length + 1;
 
-  componentWillLoad() {
-    // this.APIData = 'Loading...';
-    fetch(urls.URL_EXPENSES)
-      .then(response => response.json())
-      .then(parsedRes => {
-        console.log(parsedRes.expenses);
-        this.list = parsedRes.expenses;
-      })
-      .catch(ex => console.log(ex));
+  // updateItem(row) {
+  //   console.log(row);
+  // }
+
+  @Event({ bubbles: true, composed: true }) updateLinkItem: EventEmitter<any>;
+  onUpdateLinkClick(row: any) {
+    this.updateLinkItem.emit(row);
   }
 
-  updateItem(row) {
-    console.log(row);
-  }
-
-  onDeleteClick(row) {
-    console.log(row);
+  @Event({ bubbles: true, composed: true }) deleteItem: EventEmitter<any>;
+  onDeleteLinkClick(row: any) {
+    this.deleteItem.emit(row);
   }
 
   renderTableRows = () => {
@@ -72,16 +67,16 @@ export class TableList {
             <span class="flex text-xl ">
               <button-field
                 btnSize="xs"
-                content={<box-icon   name="edit-alt" color="green"  ></box-icon>}
+                content={<box-icon name="edit-alt" color="green"></box-icon>}
                 className="btn-basic mr-3 md:mr-3 "
-                onClick={() => this.updateItem(row)}
+                onClick={() => this.onUpdateLinkClick(row)}
               ></button-field>
 
               <button-field
                 btnSize="xs"
-                content={<box-icon   name="trash" color="red"></box-icon>}
+                content={<box-icon name="trash" color="red"></box-icon>}
                 className="btn-basic"
-                onClick={() => this.onDeleteClick(row)}
+                onClick={() => this.onDeleteLinkClick(row)}
               ></button-field>
             </span>
           </td>

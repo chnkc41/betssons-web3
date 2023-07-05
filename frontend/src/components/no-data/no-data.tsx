@@ -2,7 +2,7 @@ import { Component, Host, Prop, h } from '@stencil/core';
 
 @Component({
   tag: 'no-data',
-  styleUrl: 'no-data.css',
+  // styleUrl: 'no-data.css',
   shadow: true,
 })
 export class NoData {
