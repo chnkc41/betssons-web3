@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="en" class="h-full bg-gray-900">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -13,20 +13,16 @@
       body {
         font-family: 'Poppins', sans-serif !important;
       }
-
     </style>
 
     <script type="module" src="/build/betssons-web3.esm.js"></script>
     <script nomodule src="/build/betssons-web3.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
   </head>
-  <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
-    <new-expense></new-expense>
-    <table-list></table-list> 
-    <stacked-chart></stacked-chart>
- 
+  <body class="h-full">
+    <!-- <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component> -->
+    <dashboard-layout></dashboard-layout>
   </body>
 </html>

@@ -27,10 +27,10 @@ export const CONTROL_SIZES = {
 
 export const initialExpensesForm = {
   id: '1',
-  name: 'expense  1',
-  description: 'lorem ipsum sit amet',
-  amount: '30',
-  date: '2023-07-05',
+  name: '',
+  description: '',
+  amount: '',
+  date: '',
 };
 
 export const initialExpensesErrorForm = {

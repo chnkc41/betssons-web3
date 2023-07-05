@@ -6,20 +6,13 @@ import { Component, Host, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class NoData {
-  @Prop({ mutable: true }) colSpan: number; 
+  @Prop({ mutable: true }) colSpan: number;
 
   render() {
     return (
-      <Host>
-        <slot>
-          <tr>
-            <td colSpan={this.colSpan}>
-              {this.colSpan}
-            </td>
-          </tr>
-        </slot>
-      </Host>
+      <tr>
+        <td colSpan={this.colSpan}>There is no data.</td>
+      </tr>
     );
   }
-
 }

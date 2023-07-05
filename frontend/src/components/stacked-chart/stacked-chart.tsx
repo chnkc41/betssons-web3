@@ -122,7 +122,7 @@ export class StackedChart {
     newDiv.setAttribute('id', id);
     newDiv.setAttribute('class', 'card full-height sm:p-7');
 
-    const currentDiv = document.getElementById('chart1');
+    const currentDiv = document.getElementById(id);
     document.body.insertBefore(newDiv, currentDiv);
   }
 

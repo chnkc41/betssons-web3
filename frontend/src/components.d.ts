@@ -39,6 +39,8 @@ export namespace Components {
         "type": string;
         "value": string;
     }
+    interface LayoutSidebar {
+    }
     interface MyComponent {
         "first": string;
         "last": string;
@@ -79,6 +81,12 @@ declare global {
         prototype: HTMLInputFieldElement;
         new (): HTMLInputFieldElement;
     };
+    interface HTMLLayoutSidebarElement extends Components.LayoutSidebar, HTMLStencilElement {
+    }
+    var HTMLLayoutSidebarElement: {
+        prototype: HTMLLayoutSidebarElement;
+        new (): HTMLLayoutSidebarElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -113,6 +121,7 @@ declare global {
         "button-field": HTMLButtonFieldElement;
         "dashboard-layout": HTMLDashboardLayoutElement;
         "input-field": HTMLInputFieldElement;
+        "layout-sidebar": HTMLLayoutSidebarElement;
         "my-component": HTMLMyComponentElement;
         "new-expense": HTMLNewExpenseElement;
         "no-data": HTMLNoDataElement;
@@ -154,6 +163,8 @@ declare namespace LocalJSX {
         "type"?: string;
         "value"?: string;
     }
+    interface LayoutSidebar {
+    }
     interface MyComponent {
         "first"?: string;
         "last"?: string;
@@ -178,6 +189,7 @@ declare namespace LocalJSX {
         "button-field": ButtonField;
         "dashboard-layout": DashboardLayout;
         "input-field": InputField;
+        "layout-sidebar": LayoutSidebar;
         "my-component": MyComponent;
         "new-expense": NewExpense;
         "no-data": NoData;
@@ -192,6 +204,7 @@ declare module "@stencil/core" {
             "button-field": LocalJSX.ButtonField & JSXBase.HTMLAttributes<HTMLButtonFieldElement>;
             "dashboard-layout": LocalJSX.DashboardLayout & JSXBase.HTMLAttributes<HTMLDashboardLayoutElement>;
             "input-field": LocalJSX.InputField & JSXBase.HTMLAttributes<HTMLInputFieldElement>;
+            "layout-sidebar": LocalJSX.LayoutSidebar & JSXBase.HTMLAttributes<HTMLLayoutSidebarElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "new-expense": LocalJSX.NewExpense & JSXBase.HTMLAttributes<HTMLNewExpenseElement>;
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;
