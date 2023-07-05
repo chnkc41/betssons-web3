@@ -12,25 +12,14 @@ import 'stencil-apexcharts';
 })
 export class DashboardLayout {
   @State() apiUrl: string = urls.URL_EXPENSES;
-  @State() themeMode: boolean = true;
+  @State() themeMode: string = "dark";
   @State() list: string[] = [];
   @State() updatingData: any = null;
   @State() newItem: any = null;
 
-  // @Watch('newItem')
-  // watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
+ 
 
-  //   console.log("newValue Watch ")
-  //   console.log(newValue)
-
-  //   // const oldList: string[] = this.list;
-  //   // const newList: string[] = [...oldList, newValue];
-  //   // this.list = newList;
-
-  // }
-
-  componentWillLoad() {
-    // this.APIData = 'Loading...';
+  componentWillRender() {
     fetch(urls.URL_EXPENSES)
       .then(response => response.json())
       .then(parsedRes => {
@@ -117,7 +106,14 @@ export class DashboardLayout {
   }
 
   changeMode() {
-    console.log('changeMode');
+    console.log(this.themeMode);
+    this.themeMode = this.themeMode === "dark" ? "light" : "dark";
+    
+    document.documentElement.classList.toggle("dark");
+    document.documentElement.classList.contains("dark")
+      ? localStorage.setItem("dark", "true")
+      : localStorage.removeItem("dark");
+    
   }
 
   render() {
@@ -147,22 +143,31 @@ export class DashboardLayout {
                 btnSize="md"
                 className="btn-primary ml-5"
               ></button-field>
-              <div>
-                <box-icon
-                  onClick={this.changeMode}
-                  name={this.themeMode ? 'sun' : 'moon'}
-                  color={this.themeMode ? 'white' : 'black'}
-                  class="cursor-pointer"
-                ></box-icon>
-                Toggle
+              <div> 
+                {this.themeMode === "dark" ? (
+                  <box-icon
+                    name="sun"
+                    color="green"
+                    class="cursor-pointer"
+                    onClick={this.changeMode}
+                  ></box-icon>
+                ) : (
+                  <box-icon
+                    name="moon"
+                    color="green"
+                    class="cursor-pointer"
+                    onClick={this.changeMode}
+                  ></box-icon>
+                )}
+                {this.themeMode}
               </div>
             </div>
             <div class="px-4 sm:px-6 lg:px-8 my-4  ">
+              <div class="mb-10">
+                <stacked-chart></stacked-chart>
+              </div>
               <div>
                 <table-list list={this.list} listTitles={listTitles}></table-list>
-              </div>
-              <div class="mt-10">
-                <stacked-chart></stacked-chart>
               </div>
             </div>
           </main>
