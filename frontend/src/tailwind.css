@@ -1,5 +1,11 @@
 @tailwind base;
 @tailwind components;
+@layer components {
+  .layout {
+    @apply h-screen bg-white dark:bg-black dark:text-gray-300;
+  }
+}
+
 @tailwind utilities;
 
 /************************************ Base *************************************/
@@ -18,20 +24,20 @@
 }
 
 body {
-  @apply font-sans text-gray-700 dark:text-gray-300 text-sm bg-gray-50 dark:bg-theme_background_dark;
+  @apply font-sans text-gray-700 dark:text-gray-300 text-sm;
 }
 
 /* Table */
 table {
-  @apply min-w-full divide-y divide-gray-300;
+  @apply min-w-full divide-y divide-gray-300 dark:divide-gray-800;
 }
 
 table thead tr th {
-  @apply capitalize px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden md:table-cell;
+  @apply capitalize px-3 py-3.5 text-left text-sm font-semibold  hidden md:table-cell text-gray-900 dark:text-gray-300;
 }
 
 table thead tr th:first-of-type {
-  @apply py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 table-cell;
+  @apply py-3.5 pl-4 pr-3 text-left text-sm font-semibold sm:pl-0 table-cell;
 }
 
 table thead tr th:last-of-type {
@@ -39,16 +45,16 @@ table thead tr th:last-of-type {
 }
 /* Table Body */
 table tbody {
-  @apply divide-y divide-gray-200 bg-white;
+  @apply divide-y divide-gray-200 dark:divide-gray-800;
 }
 
 /* hidden */
 table tbody tr td {
-  @apply block py-1.5 px-3 md:py-4 text-sm text-gray-500  md:table-cell;
+  @apply block py-1.5 px-3 md:py-4 text-sm   md:table-cell;
 }
 
 table tbody tr td:first-of-type {
-  @apply w-full md:w-auto text-sm font-medium text-gray-900 md:pl-0 uppercase;
+  @apply w-full md:w-auto text-sm font-medium  md:pl-0 uppercase;
 }
 
 table tbody tr td:last-of-type {
@@ -56,51 +62,7 @@ table tbody tr td:last-of-type {
 }
 
 table tbody tr td:last-of-type {
-  @apply w-32
-}
-/************************************ Layout ***********************************/
-.layout {
-  @apply h-screen flex overflow-hidden dark:bg-theme_background_dark; /*bg-custom-gradient dark:bg-custom-gradient-dark bg-cover bg-no-repeat bg-top*/
-}
-
-.layout__content {
-  @apply flex flex-col w-0 flex-1 overflow-hidden;
-}
-
-/************************************ Sidebar **********************************/
-.sidebar {
-  @apply z-50 dark:z-50 hidden md:flex md:flex-shrink-0 border-r border-gray-300 dark:border-slate-800 
-   bg-gray-50 dark:bg-theme_background_dark md:bg-transparent dark:md:bg-transparent;
-}
-
-.nav__link {
-  @apply my-3 flex items-center px-2 py-3 text-sm leading-5 font-medium text-gray-900 dark:text-gray-300 rounded-md
-    hover:bg-gray-100 hover:border-gray-300 dark:hover:bg-slate-900 focus:outline-none transition ease-in-out duration-150;
-}
-
-.mobile {
-  @apply w-80;
-}
-
-.nav__link.active {
-  @apply rounded-md dark:bg-slate-800 dark:text-gray-200 bg-gray-200/75;
-}
-
-.logo {
-  @apply cursor-pointer flex items-center h-16 flex-shrink-0 px-4 border-b border-gray-300 dark:border-slate-800;
-}
-
-.side-menu {
-  @apply flex-1 px-2 py-4;
-}
-
-/************************************ Topbar ***********************************/
-.topbar {
-  @apply relative flex flex-shrink-0 h-16 text-gray-900 border-b border-gray-300 dark:border-slate-800;
-}
-
-.toggle-icon {
-  @apply px-4 text-gray-500 focus:outline-none;
+  @apply w-32;
 }
 
 /************************************ Main Content *****************************/
@@ -116,10 +78,6 @@ table tbody tr td:last-of-type {
 .input-main {
   @apply appearance-none block w-full px-3 py-2 !h-12 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none 
   focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 dark:text-gray-900;
-}
-
-.input-borderless {
-  @apply w-28 pl-2 pt-2 pb-1.5 sm:leading-5 bg-transparent cursor-pointer text-sm dark:text-gray-300 border-b outline-none border-orange-500 focus:dark:border-cyan-800;
 }
 
 .label-primary {

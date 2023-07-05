@@ -60,6 +60,8 @@ export namespace Components {
         "listTitles": string[];
         "userName": string;
     }
+    interface ThemeMode {
+    }
 }
 export interface NewExpenseCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -118,6 +120,12 @@ declare global {
         prototype: HTMLTableListElement;
         new (): HTMLTableListElement;
     };
+    interface HTMLThemeModeElement extends Components.ThemeMode, HTMLStencilElement {
+    }
+    var HTMLThemeModeElement: {
+        prototype: HTMLThemeModeElement;
+        new (): HTMLThemeModeElement;
+    };
     interface HTMLElementTagNameMap {
         "button-field": HTMLButtonFieldElement;
         "dashboard-layout": HTMLDashboardLayoutElement;
@@ -127,6 +135,7 @@ declare global {
         "no-data": HTMLNoDataElement;
         "stacked-chart": HTMLStackedChartElement;
         "table-list": HTMLTableListElement;
+        "theme-mode": HTMLThemeModeElement;
     }
 }
 declare namespace LocalJSX {
@@ -187,6 +196,8 @@ declare namespace LocalJSX {
         "onUpdateLinkItem"?: (event: TableListCustomEvent<any>) => void;
         "userName"?: string;
     }
+    interface ThemeMode {
+    }
     interface IntrinsicElements {
         "button-field": ButtonField;
         "dashboard-layout": DashboardLayout;
@@ -196,6 +207,7 @@ declare namespace LocalJSX {
         "no-data": NoData;
         "stacked-chart": StackedChart;
         "table-list": TableList;
+        "theme-mode": ThemeMode;
     }
 }
 export { LocalJSX as JSX };
@@ -210,6 +222,7 @@ declare module "@stencil/core" {
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;
             "stacked-chart": LocalJSX.StackedChart & JSXBase.HTMLAttributes<HTMLStackedChartElement>;
             "table-list": LocalJSX.TableList & JSXBase.HTMLAttributes<HTMLTableListElement>;
+            "theme-mode": LocalJSX.ThemeMode & JSXBase.HTMLAttributes<HTMLThemeModeElement>;
         }
     }
 }

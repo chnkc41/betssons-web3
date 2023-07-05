@@ -27,7 +27,7 @@ export class StackedChart {
     color: ['#6ab04c', '#2980b9'],
     chart: {
       background: 'transparent',
-      type: 'area', //bar, line
+      type: 'line', //bar, line
       height: 350,
       stacked: true,
       toolbar: {
@@ -64,7 +64,7 @@ export class StackedChart {
             enabled: true,
             style: {
               fontSize: '13px',
-              fontWeight: 900,
+              fontWeight: 900, 
             },
           },
         },
@@ -90,7 +90,7 @@ export class StackedChart {
         fontSize: '14px',
         fontWeight: 'bold',
         //   fontFamily:  undefined,
-        color: '#263238',
+        color: '#263238', // '#263238',
       },
     },
     // annotations: {

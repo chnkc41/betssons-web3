@@ -12,12 +12,10 @@ import 'stencil-apexcharts';
 })
 export class DashboardLayout {
   @State() apiUrl: string = urls.URL_EXPENSES;
-  @State() themeMode: string = "dark";
   @State() list: string[] = [];
   @State() updatingData: any = null;
   @State() newItem: any = null;
-
- 
+  @State() barControl: boolean = true;
 
   componentWillRender() {
     fetch(urls.URL_EXPENSES)
@@ -105,72 +103,54 @@ export class DashboardLayout {
     }).showToast();
   }
 
-  changeMode() {
-    console.log(this.themeMode);
-    this.themeMode = this.themeMode === "dark" ? "light" : "dark";
-    
-    document.documentElement.classList.toggle("dark");
-    document.documentElement.classList.contains("dark")
-      ? localStorage.setItem("dark", "true")
-      : localStorage.removeItem("dark");
-    
+  sideBarControl() {
+    console.log(this.barControl);
+    this.barControl = !this.barControl;
   }
 
   render() {
     return (
-      <div>
-        <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
-          <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-            <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
-              <img
-                class="h-14 inline-block w-auto"
-                src="https://www.betssongroup.com/wp-content/uploads/2023/01/betsson_logo_60.png"
-                alt=" Betsson Group"
-              />
+      <div class="dark layout" id="mainContainer">
+        <div>
+          {this.barControl && (
+            <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
+              <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+                <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
+                  <img
+                    class="h-14 inline-block w-auto"
+                    src="https://www.betssongroup.com/wp-content/uploads/2023/01/betsson_logo_60.png"
+                    alt=" Betsson Group"
+                  />
+                </div>
+                <div class="flex flex-1 flex-col">
+                  <new-expense updatingData={this.updatingData}></new-expense>
+                </div>
+              </div>
             </div>
-            <div class="flex flex-1 flex-col">
-              <new-expense updatingData={this.updatingData}></new-expense>
-            </div>
-          </div>
-        </div>
+          )}
+          <div class={this.barControl ? 'lg:pl-96' : ''}>
+            <main class="p-5 border">
+              <div class="flex items-center justify-between border-b mb-5 pb-5">
+                <box-icon
+                  name="menu"
+                  class="cursor-pointer"
+                  onClick={this.sideBarControl.bind(this)}
+                ></box-icon>
 
-        <div class="lg:pl-96">
-          <main class="p-5 border">
-            <div class="flex items-center justify-between border-b mb-5 pb-5">
-              <button-field
-                content={'Add New'}
-                type="button"
-                btnSize="md"
-                className="btn-primary ml-5"
-              ></button-field>
-              <div> 
-                {this.themeMode === "dark" ? (
-                  <box-icon
-                    name="sun"
-                    color="green"
-                    class="cursor-pointer"
-                    onClick={this.changeMode}
-                  ></box-icon>
-                ) : (
-                  <box-icon
-                    name="moon"
-                    color="green"
-                    class="cursor-pointer"
-                    onClick={this.changeMode}
-                  ></box-icon>
-                )}
-                {this.themeMode}
+                <div>
+                  <theme-mode></theme-mode>
+                </div>
               </div>
-            </div>
-            <div class="px-4 sm:px-6 lg:px-8 my-4  ">
-              <div class="mb-10">
-                <stacked-chart></stacked-chart>
+              <div class="px-4 sm:px-6 lg:px-8 my-4  ">
+                <div class="mb-10">
+                  <stacked-chart></stacked-chart>
+                </div>
+                <div>
+                  <table-list list={this.list} listTitles={listTitles}></table-list>
+                </div>
               </div>
-              <div>
-                <table-list list={this.list} listTitles={listTitles}></table-list>
-              </div>
-            </div>
-          </main>
+            </main>
+          </div>
         </div>
       </div>
     );
