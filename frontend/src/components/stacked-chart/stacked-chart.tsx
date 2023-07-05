@@ -11,29 +11,21 @@ export class StackedChart {
   @Prop() series: any[] = [
     {
       name: 'PRODUCT A',
-      data: [31, 40, 28, 51, 42, 109, 100]
+      data: [31, 40, 28, 51, 42, 109, 100],
     },
     {
       name: 'PRODUCT B',
-      data: [11, 32, 45, 32, 34, 52, 41]
-    }
+      data: [11, 32, 45, 32, 34, 52, 41],
+    },
   ];
 
-  connectedCallback() {
-    console.log('this.series');
-    console.log(this.series);
-  }
-
   componentDidLoad() {
-    console.log(this.first);
-    console.log(this.series);
-
     let options = {
       series: this.series,
       color: ['#6ab04c', '#2980b9'],
       chart: {
         background: 'transparent',
-        type: 'area', //bar, line 
+        type: 'area', //bar, line
         height: 350,
         stacked: true,
         toolbar: {
@@ -117,29 +109,24 @@ export class StackedChart {
       },
     };
 
-    this.addElement("div", "chart")
+    this.addElement('div', 'chart');
 
     let chart = new ApexCharts(document.querySelector('#chart'), options);
 
     return chart.render();
-  } 
-
+  }
 
   addElement(element, id) {
     // create a new div element
     const newDiv = document.createElement(element);
-    newDiv.setAttribute("id", id); 
-    newDiv.setAttribute("class", "card full-height sm:p-7"); 
-    
-    const currentDiv = document.getElementById("chart1");
+    newDiv.setAttribute('id', id);
+    newDiv.setAttribute('class', 'card full-height sm:p-7');
+
+    const currentDiv = document.getElementById('chart1');
     document.body.insertBefore(newDiv, currentDiv);
   }
 
   render() {
-    return (
-      <div class="" id="chart1">
-         
-      </div>
-    );
+    return <div class="" id="chart1"></div>;
   }
 }
