@@ -6,8 +6,38 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface ButtonField {
+        "block": string;
+        "btnSize": string;
+        "className": string;
+        "content": any;
+        "disabled": boolean;
+        "icon": string;
+        "loading": boolean;
+        "onClick": any;
+        "shape": string;
+        "type": string;
+    }
     interface DashboardLayout {
         "userName": string;
+    }
+    interface InputField {
+        "autoFocus": boolean;
+        "className": string;
+        "disabled": boolean;
+        "error": string;
+        "id": string;
+        "label": string;
+        "maxLength": number;
+        "minLength": number;
+        "name": string;
+        "onChange": any;
+        "placeholder": string;
+        "readonly": boolean;
+        "required": boolean;
+        "secondLabel": string;
+        "type": string;
+        "value": string;
     }
     interface MyComponent {
         "first": string;
@@ -15,6 +45,7 @@ export namespace Components {
         "middle": string;
     }
     interface NewExpense {
+        "updatingData": boolean;
     }
     interface NoData {
         "colSpan": number;
@@ -30,11 +61,23 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLButtonFieldElement extends Components.ButtonField, HTMLStencilElement {
+    }
+    var HTMLButtonFieldElement: {
+        prototype: HTMLButtonFieldElement;
+        new (): HTMLButtonFieldElement;
+    };
     interface HTMLDashboardLayoutElement extends Components.DashboardLayout, HTMLStencilElement {
     }
     var HTMLDashboardLayoutElement: {
         prototype: HTMLDashboardLayoutElement;
         new (): HTMLDashboardLayoutElement;
+    };
+    interface HTMLInputFieldElement extends Components.InputField, HTMLStencilElement {
+    }
+    var HTMLInputFieldElement: {
+        prototype: HTMLInputFieldElement;
+        new (): HTMLInputFieldElement;
     };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
@@ -67,7 +110,9 @@ declare global {
         new (): HTMLTableListElement;
     };
     interface HTMLElementTagNameMap {
+        "button-field": HTMLButtonFieldElement;
         "dashboard-layout": HTMLDashboardLayoutElement;
+        "input-field": HTMLInputFieldElement;
         "my-component": HTMLMyComponentElement;
         "new-expense": HTMLNewExpenseElement;
         "no-data": HTMLNoDataElement;
@@ -76,8 +121,38 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface ButtonField {
+        "block"?: string;
+        "btnSize"?: string;
+        "className"?: string;
+        "content"?: any;
+        "disabled"?: boolean;
+        "icon"?: string;
+        "loading"?: boolean;
+        "onClick"?: any;
+        "shape"?: string;
+        "type"?: string;
+    }
     interface DashboardLayout {
         "userName"?: string;
+    }
+    interface InputField {
+        "autoFocus"?: boolean;
+        "className"?: string;
+        "disabled"?: boolean;
+        "error"?: string;
+        "id"?: string;
+        "label"?: string;
+        "maxLength"?: number;
+        "minLength"?: number;
+        "name"?: string;
+        "onChange"?: any;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "secondLabel"?: string;
+        "type"?: string;
+        "value"?: string;
     }
     interface MyComponent {
         "first"?: string;
@@ -85,6 +160,7 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
     interface NewExpense {
+        "updatingData"?: boolean;
     }
     interface NoData {
         "colSpan"?: number;
@@ -99,7 +175,9 @@ declare namespace LocalJSX {
         "userName"?: string;
     }
     interface IntrinsicElements {
+        "button-field": ButtonField;
         "dashboard-layout": DashboardLayout;
+        "input-field": InputField;
         "my-component": MyComponent;
         "new-expense": NewExpense;
         "no-data": NoData;
@@ -111,7 +189,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "button-field": LocalJSX.ButtonField & JSXBase.HTMLAttributes<HTMLButtonFieldElement>;
             "dashboard-layout": LocalJSX.DashboardLayout & JSXBase.HTMLAttributes<HTMLDashboardLayoutElement>;
+            "input-field": LocalJSX.InputField & JSXBase.HTMLAttributes<HTMLInputFieldElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "new-expense": LocalJSX.NewExpense & JSXBase.HTMLAttributes<HTMLNewExpenseElement>;
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;

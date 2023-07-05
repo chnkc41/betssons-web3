@@ -1,5 +1,6 @@
 import { Component, Host, Prop, State, h } from '@stencil/core';
-
+import 'boxicons';
+import {urls} from "../../constants/constant"
 @Component({
   tag: 'table-list',
   styleUrl: '../../tailwind.css',
@@ -8,15 +9,16 @@ import { Component, Host, Prop, State, h } from '@stencil/core';
 export class TableList {
   @Prop({ mutable: true }) userName: string;
   @Prop({ mutable: true }) list: string[] = [];
-  @Prop({ mutable: true }) colSpan: number = Object.keys(this.list?.length > 0 && this.list[0]).length + 1;
+  @Prop({ mutable: true }) colSpan: number =
+    Object.keys(this.list?.length > 0 && this.list[0]).length + 1;
 
   componentWillLoad() {
     // this.APIData = 'Loading...';
-    fetch('http://localhost:5000/users')
+    fetch(urls.URL_EXPENSES)
       .then(response => response.json())
       .then(parsedRes => {
-        console.log(parsedRes.users);
-        this.list = parsedRes.users;
+        console.log(parsedRes.expenses);
+        this.list = parsedRes.expenses;
       })
       .catch(ex => console.log(ex));
   }
@@ -30,11 +32,10 @@ export class TableList {
   }
 
   renderTableRows = () => {
-    {
-      console.log(this.list);
-    }
     return this.list?.map((row, index) => {
-      const filteredByKey = Object.fromEntries(Object.entries(row).filter(([key, value]) => key !== 'relatedId'));
+      const filteredByKey = Object.fromEntries(
+        Object.entries(row).filter(([key, value]) => key !== 'relatedId'),
+      );
 
       let columns = Object.values(filteredByKey);
       return (
@@ -69,14 +70,19 @@ export class TableList {
           })}
           <td class="text-right">
             <span class="flex text-xl ">
-              <button class="btn-basic mr-3 md:mr-3  text-green-700" onClick={() => this.updateItem(row)}>
-                Edit
-              </button>
+              <button-field
+                btnSize="xs"
+                content={<box-icon   name="edit-alt" color="green"  ></box-icon>}
+                className="btn-basic mr-3 md:mr-3 "
+                onClick={() => this.updateItem(row)}
+              ></button-field>
 
-              <button class="btn-basic text-red-700" onClick={() => this.onDeleteClick(row)}>
-                {' '}
-                Delete{' '}
-              </button>
+              <button-field
+                btnSize="xs"
+                content={<box-icon   name="trash" color="red"></box-icon>}
+                className="btn-basic"
+                onClick={() => this.onDeleteClick(row)}
+              ></button-field>
             </span>
           </td>
         </tr>

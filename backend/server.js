@@ -14,22 +14,22 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-const fileName = __dirname + "/" + "db/users.json";
+const fileName = __dirname + "/" + "db/db.json";
 
-// Endpoint to Get a list of users
-app.get("/users", function (req, res) {
+// Endpoint to Get a list of expenses
+app.get("/expenses", function (req, res) {
   fs.readFile(fileName, "utf8", function (err, data) {
     res.send(data);
   });
 });
 
 //Endpoint to get a single user by id
-app.get("/users/:id", function (req, res) {
+app.get("/expenses/:id", function (req, res) {
   // First retrieve existing user list
   fs.readFile(fileName, "utf8", function (err, data) {
     const dataList = JSON.parse(data);
-    const users = dataList.users;
-    const user = users.filter((user) => 
+    const expenses = dataList.expenses;
+    const user = expenses.filter((user) => 
       user.id === req.params.id
     );
 
@@ -37,15 +37,15 @@ app.get("/users/:id", function (req, res) {
   });
 });
 
-app.delete("/users/:id", function (req, res) {
+app.delete("/expenses/:id", function (req, res) {
   fs.readFile(fileName, function (err, data) {
     const dataList = JSON.parse(data);
-    const users = dataList.users;
-    const filteredList = users.filter((user) => 
+    const expenses = dataList.expenses;
+    const filteredList = expenses.filter((user) => 
       user.id !== req.params.id
     );
 
-    dataList.users = filteredList;
+    dataList.expenses = filteredList;
 
     fs.writeFile(fileName, JSON.stringify(dataList), function (err, result) {
       if (err) console.log("error", err);
@@ -56,13 +56,13 @@ app.delete("/users/:id", function (req, res) {
 });
 
 //The addUser endpoint
-app.post("/users", function (req, res) {
+app.post("/expenses", function (req, res) {
   const newUser = req.body;
 
     fs.readFile(fileName, function (err, data) {
       const dataList = JSON.parse(data);
 
-      const userList = dataList.users;
+      const userList = dataList.expenses;
       userList.push(newUser);
 
       fs.writeFile(fileName, JSON.stringify(dataList), function (err, result) {

@@ -1,0 +1,88 @@
+{
+    "expenses": [
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "2",
+            "name": "expense  2",
+            "description": "lorem ipsum sit amet",
+            "amount": "20",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "3",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "expense  1",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "23r3r",
+            "description": "lorem ipsum sit amet",
+            "amount": "30",
+            "date": "2023-07-05"
+        },
+        {
+            "id": "1",
+            "name": "wwwwww",
+            "description": "lorem ipsum sit amet",
+            "amount": "44",
+            "date": "2023-07-15"
+        },
+        {
+            "id": "1",
+            "name": "wwwwww",
+            "description": "wwwwwweeee",
+            "amount": "44",
+            "date": "2023-07-15"
+        }
+    ]
+}
