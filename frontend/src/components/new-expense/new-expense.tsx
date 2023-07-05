@@ -1,6 +1,6 @@
 import { Component, Host, Prop, State, h } from '@stencil/core';
 import { urls, initialExpensesForm, initialExpensesErrorForm } from '../../constants/constant';
-import axios from 'axios'
+import axios from 'axios';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
@@ -13,14 +13,23 @@ export class NewExpense {
   @Prop({ mutable: true }) updatingData: boolean = false;
   @State() apiUrl: string = urls.URL_EXPENSES;
   // @State() formModel: object = { name: '', expense: '' };
-  @State() formModel: { name: string; description: string; amount: string; date: string } =
-    initialExpensesForm;
+  @State() formModel: {
+    id: number;
+    name: string;
+    description: string;
+    amount: string;
+    date: string;
+  } = initialExpensesForm;
   @State() formErrorModel: {
     name: boolean;
     description: boolean;
     amount: boolean;
     date: boolean;
   } = initialExpensesErrorForm;
+
+  componentDidLoad() {
+    this.formModel.id = Math.floor(Math.random() * 99999999);
+  }
 
   onFormSubmit = async (updatingData, e) => {
     e.preventDefault();
@@ -48,7 +57,6 @@ export class NewExpense {
         this.formModel,
         updatingData?.id,
       );
- 
 
       if (!success) {
         this.toastify(
@@ -73,7 +81,7 @@ export class NewExpense {
     }
   };
 
-  sendAddOrUpdateRequest = async (apiUrl, formModel, itemID) => { 
+  sendAddOrUpdateRequest = async (apiUrl, formModel, itemID) => {
     try {
       const result =
         itemID && itemID
@@ -84,32 +92,30 @@ export class NewExpense {
           : await axios.post(apiUrl, formModel, {
               withCredentials: false,
               headers: { 'content-type': 'application/json; charset=utf-8' },
-            })
+            });
 
-            console.log(result)
-            console.log(result.data) 
-  
+      console.log(result);
+      console.log(result.data);
+
       if (result && result.data && result.status === 200) {
-        return { success: true }
+        return { success: true };
       }
-  
-      return { success: false }
+
+      return { success: false };
     } catch (e) {
-      console.log(e)
-      return { success: false }
+      console.log(e);
+      return { success: false };
     }
-  }
-  
+  };
 
   clearForm() {
-    alert();
     this.formModel = initialExpensesForm;
   }
 
   //Change Input
   onChangeInput = e => {
     const name = e.target.name;
-    this.formModel[name] = e.target.value
+    this.formModel[name] = e.target.value;
   };
 
   toastify(messageType, message) {
@@ -152,7 +158,7 @@ export class NewExpense {
                   required={true}
                   value={this.formModel.name}
                   onChange={(e: any) => {
-                    console.log(e)
+                    console.log(e);
                     // const name = e.target.name;
                     // this.formModel[name] = e.target.value
                     this.onChangeInput(e);
