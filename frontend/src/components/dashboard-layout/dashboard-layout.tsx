@@ -147,8 +147,8 @@ export class DashboardLayout {
       <Host>
         <div id="my-id">
           <div class="layout">
-            {this.barControl && (
-              <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
+            <div class={this.barControl ? '' : 'hidden'}>
+              <div class="absolute top-16 sm:top-0 w-full z-50 sm:fixed sm:inset-y-0 sm:flex sm:w-96 sm:flex-col">
                 <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600  px-6 pb-4">
                   <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
                     <img
@@ -162,7 +162,8 @@ export class DashboardLayout {
                   </div>
                 </div>
               </div>
-            )}
+            </div>
+
             <div class={this.barControl ? 'lg:pl-96' : ''}>
               <main class="px-0 py-5 sm:px-5 ">
                 <div class="flex items-center justify-between border-b dark:border-gray-700 mb-5 pb-5">
