@@ -166,7 +166,7 @@ export class DashboardLayout {
               </div>
             )}
             <div class={this.barControl ? 'lg:pl-96' : ''}>
-              <main class="p-5">
+              <main class="px-0 py-5 sm:px-5 ">
                 <div class="flex items-center justify-between border-b dark:border-gray-700 mb-5 pb-5">
                   <div>
                     <box-icon

@@ -102,7 +102,7 @@ export class StackedChart {
       },
     },
     grid: {
-      show: true,
+      show: false,
     },
     fill: {
       opacity: 1,
