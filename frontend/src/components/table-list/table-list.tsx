@@ -1,5 +1,5 @@
 import { Component, Host, Prop, State, Event, EventEmitter, h } from '@stencil/core';
-import 'boxicons'; 
+import 'boxicons';
 @Component({
   tag: 'table-list',
   styleUrl: '../../tailwind.css',
@@ -26,7 +26,7 @@ export class TableList {
     return (
       <tr>
         {this.listTitles.map(item => {
-          return <td> {item} </td>;
+          return <th> {item} </th>;
         })}
       </tr>
     );
@@ -41,34 +41,28 @@ export class TableList {
       let columns = Object.values(filteredByKey);
       return (
         <tr key={index}>
-          {columns.map((column, index) => {
+          {columns.map((column, columnIndex) => {
             return (
-              index !== 0 && (
-                <td
-                  key={index}
-                  // onClick={() => handleClick(column)}
-                  //  class={` ${column.visible ? 'visible' : 'hidden'}`}
-                >
+              columnIndex !== 0 && (
+                <td key={columnIndex}>
+                  <b class="inline md:hidden">{this.listTitles[columnIndex - 1]} </b>
                   {column}
                 </td>
               )
             );
           })}
           <td class="text-right">
-            <span class="flex text-xl ">
-              <button-field
-                btnSize="xs"
-                content={<box-icon name="edit-alt" color="green"></box-icon>}
-                className="btn-basic mr-3 md:mr-3 "
+            <span class="flex flex-col sm:flex-row  text-xl gap-5 ">
+              <box-icon
+                name="edit-alt"
+                color="green"
                 onClick={() => this.onUpdateLinkClick(row)}
-              ></button-field>
-
-              <button-field
-                btnSize="xs"
-                content={<box-icon name="trash" color="red"></box-icon>}
-                className="btn-basic"
+              ></box-icon>
+              <box-icon
+                name="trash"
+                color="red"
                 onClick={() => this.onDeleteLinkClick(row)}
-              ></button-field>
+              ></box-icon>
             </span>
           </td>
         </tr>
