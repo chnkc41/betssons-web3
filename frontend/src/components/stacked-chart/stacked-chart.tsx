@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
+import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'stacked-chart',
@@ -6,10 +6,10 @@ import { Component, Host, Prop, State, h } from '@stencil/core';
   shadow: true,
 })
 export class StackedChart {
-  @Prop() first: string = '';
+  @Prop() themeMode: string = '';
   @Prop() chartSeries: any[] = [];
 
-  @Prop() options: any = {
+  @State() options: any = {
     color: ['#6ab04c', '#2980b9'],
     chart: {
       background: 'transparent',
@@ -22,6 +22,9 @@ export class StackedChart {
       zoom: {
         enabled: true,
       },
+    },
+    theme: {
+      mode: 'light',
     },
     dataLabels: {
       enabled: false,
@@ -51,7 +54,7 @@ export class StackedChart {
             style: {
               fontSize: '13px',
               fontWeight: 900,
-              color: localStorage.getItem('dark') ? '#ededed' : '',
+              color: this.themeMode === '#00f' ? '#ededed' : '',
             },
           },
         },
@@ -59,25 +62,9 @@ export class StackedChart {
     },
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      labels: {
-        style: {
-          colors: localStorage.getItem('dark') ? '#ededed' : [],
-        },
-      },
-    },
-    yaxis: {
-      labels: {
-        style: {
-          colors: localStorage.getItem('dark') ? '#ededed' : [],
-        },
-      },
     },
     legend: {
       position: 'top',
-      labels: {
-        colors: localStorage.getItem('dark') ? '#ededed' : [],
-        useSeriesColors: false,
-      },
     },
     tooltip: {
       enabled: true,
@@ -92,7 +79,6 @@ export class StackedChart {
       style: {
         fontSize: '12px',
         fontFamily: undefined,
-        colors: localStorage.getItem('dark') ? '#ededed' : [],
       },
       fixed: {
         enabled: false,
@@ -117,8 +103,6 @@ export class StackedChart {
       style: {
         fontSize: '14px',
         fontWeight: 'bold',
-        //   fontFamily:  undefined,
-        color: localStorage.getItem('dark') ? '#ededed' : '263238',
       },
     },
     annotations: {
@@ -138,6 +122,15 @@ export class StackedChart {
       ],
     },
   };
+
+  @Watch('themeMode')
+  watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
+    console.log(newValue);
+    this.options = {
+      ...this.options,
+      theme: { mode: this.themeMode },
+    };
+  }
 
   render() {
     return (

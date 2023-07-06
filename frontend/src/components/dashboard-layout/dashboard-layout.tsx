@@ -195,7 +195,10 @@ export class DashboardLayout {
                 </div>
                 <div class="px-4 sm:px-6 lg:px-8 my-4  ">
                   <div class="mb-10">
-                    <stacked-chart chartSeries={this.chartSeries}></stacked-chart>
+                    <stacked-chart
+                      chartSeries={this.chartSeries}
+                      themeMode={this.themeMode}
+                    ></stacked-chart>
                   </div>
                   <div>
                     <table-list list={this.list} listTitles={listTitles}></table-list>

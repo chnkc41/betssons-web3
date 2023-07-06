@@ -46,8 +46,7 @@ export namespace Components {
     }
     interface StackedChart {
         "chartSeries": any[];
-        "first": string;
-        "options": any;
+        "themeMode": string;
     }
     interface TableList {
         "colSpan": number;
@@ -159,8 +158,7 @@ declare namespace LocalJSX {
     }
     interface StackedChart {
         "chartSeries"?: any[];
-        "first"?: string;
-        "options"?: any;
+        "themeMode"?: string;
     }
     interface TableList {
         "colSpan"?: number;
