@@ -1,4 +1,4 @@
-import { Component, Host, Listen, State, Watch, h } from '@stencil/core';
+import { Component, Element, Host, Listen, State, Watch, h } from '@stencil/core';
 
 @Component({
   tag: 'theme-mode',
@@ -7,15 +7,17 @@ import { Component, Host, Listen, State, Watch, h } from '@stencil/core';
 export class ThemeMode {
   @State() themeMode: string = 'dark';
 
-  @Listen('click', { capture: true })
+  @Element() el: HTMLElement;
+
+  getListHeight() {
+     this.el.classList.toggle("dark");
+    console.log(this.el.classList);
+    console.log(this.el.children);
+
+  }
+
   handleClick() {
     this.themeMode = this.themeMode === 'dark' ? 'light' : 'dark';
-
-    const mainContainer = document.querySelector("#mainContainer");
-
-    console.log(mainContainer)
-    console.log(mainContainer)
-
 
     document.documentElement.classList.toggle('dark');
     document.documentElement.classList.contains('dark')
@@ -25,13 +27,27 @@ export class ThemeMode {
 
   render() {
     return (
-      <div>
-        {this.themeMode === 'dark' ? (
-          <box-icon name="sun" color="green" class="cursor-pointer"></box-icon>
-        ) : (
-          <box-icon name="moon" color="green" class="cursor-pointer"></box-icon>
-        )}
-      </div>
+      <Host>
+         
+          <div class="test">
+            {this.themeMode === 'dark' ? (
+              <box-icon
+                name="sun"
+                color="green"
+                class="cursor-pointer"
+                onClick={this.getListHeight.bind(this)}
+              ></box-icon>
+            ) : (
+              <box-icon
+                name="moon"
+                color="green"
+                class="cursor-pointer"
+                onClick={this.handleClick.bind(this)}
+              ></box-icon>
+            )}
+          </div>
+         
+      </Host>
     );
   }
 }

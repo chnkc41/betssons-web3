@@ -51,6 +51,7 @@ export class StackedChart {
             style: {
               fontSize: '13px',
               fontWeight: 900,
+              color: localStorage.getItem('dark') ? '#ededed' : '',
             },
           },
         },
@@ -58,12 +59,53 @@ export class StackedChart {
     },
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      labels: {
+        style: {
+          colors: localStorage.getItem('dark') ? '#ededed' : [],
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: localStorage.getItem('dark') ? '#ededed' : [],
+        },
+      },
     },
     legend: {
       position: 'top',
+      labels: {
+        colors: localStorage.getItem('dark') ? '#ededed' : [],
+        useSeriesColors: false,
+      },
+    },
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: undefined,
+      shared: true,
+      followCursor: false,
+      intersect: false,
+      inverseOrder: false,
+      custom: undefined,
+      fillSeriesColor: false,
+      theme: 'dark',
+      style: {
+        fontSize: '12px',
+        fontFamily: undefined,
+        colors: localStorage.getItem('dark') ? '#ededed' : [],
+      },
+      fixed: {
+        enabled: false,
+        position: 'topRight',
+        offsetX: 0,
+        offsetY: 0,
+      },
     },
     grid: {
       show: true,
+    },
+    fill: {
+      opacity: 1,
     },
     title: {
       text: 'Total Production',
@@ -76,7 +118,7 @@ export class StackedChart {
         fontSize: '14px',
         fontWeight: 'bold',
         //   fontFamily:  undefined,
-        color: '#263238', // '#263238',
+        color: localStorage.getItem('dark') ? '#ededed' : '263238',
       },
     },
     annotations: {
@@ -100,7 +142,7 @@ export class StackedChart {
   render() {
     return (
       <div>
-        <apex-chart type="line" series={this.chartSeries} options={this.options} />
+        <apex-chart type="bar" series={this.chartSeries} options={this.options} />
       </div>
     );
   }

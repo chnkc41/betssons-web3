@@ -1,4 +1,4 @@
-import { Component, Host, Prop, Listen, h, State, Watch } from '@stencil/core';
+import { Component, Host, Prop, Listen, h, State, Watch, Element } from '@stencil/core';
 import { urls, listTitles } from '../../constants/constant';
 import axios from 'axios';
 import Toastify from 'toastify-js';
@@ -38,6 +38,13 @@ export class DashboardLayout {
         this.list = parsedRes.expenses;
       })
       .catch(ex => console.log(ex));
+  }
+
+  componentDidLoad() {
+    if (localStorage.getItem('dark')) {
+      this.el.shadowRoot.querySelector('#my-id').classList.toggle('dark');
+      this.themeMode = 'dark';
+    }
   }
 
   // Get Updating data from table list
@@ -122,51 +129,85 @@ export class DashboardLayout {
     this.barControl = !this.barControl;
   }
 
+  @State() themeMode: string = 'light';
+
+  @Element() el: HTMLElement;
+
+  changeThemeMode() {
+    const myElement = this.el.shadowRoot.querySelector('#my-id');
+    myElement.classList.toggle('dark');
+
+    this.themeMode = this.themeMode === 'light' ? 'dark' : 'light';
+
+    this.themeMode === 'dark'
+      ? localStorage.setItem('dark', 'dark')
+      : localStorage.removeItem('dark');
+  }
+
   render() {
     return (
-      <div class="dark layout" id="mainContainer">
-        <div>
-          {this.barControl && (
-            <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
-              <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
-                <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
-                  <img
-                    class="h-14 inline-block w-auto"
-                    src="https://www.betssongroup.com/wp-content/uploads/2023/01/betsson_logo_60.png"
-                    alt=" Betsson Group"
-                  />
-                </div>
-                <div class="flex flex-1 flex-col">
-                  <new-expense updatingData={this.updatingData}></new-expense>
+      <Host>
+        <div id="my-id">
+          <div class="layout">
+            {this.barControl && (
+              <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
+                <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600  px-6 pb-4">
+                  <div class="flex h-24 pt-3 shrink-0 items-center justify-center">
+                    <img
+                      class="h-14 inline-block w-auto"
+                      src="https://www.betssongroup.com/wp-content/uploads/2023/01/betsson_logo_60.png"
+                      alt=" Betsson Group"
+                    />
+                  </div>
+                  <div class="flex flex-1 flex-col">
+                    <new-expense updatingData={this.updatingData}></new-expense>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          <div class={this.barControl ? 'lg:pl-96' : ''}>
-            <main class="p-5 border">
-              <div class="flex items-center justify-between border-b mb-5 pb-5">
-                <box-icon
-                  name="menu"
-                  class="cursor-pointer"
-                  onClick={this.sideBarControl.bind(this)}
-                ></box-icon>
+            )}
+            <div class={this.barControl ? 'lg:pl-96' : ''}>
+              <main class="p-5">
+                <div class="flex items-center justify-between border-b dark:border-gray-700 mb-5 pb-5">
+                  <div>
+                    <box-icon
+                      name="menu"
+                      color="green"
+                      class="cursor-pointer "
+                      onClick={this.sideBarControl.bind(this)}
+                    ></box-icon>
+                  </div>
 
-                <div>
-                  <theme-mode></theme-mode>
+                  <div>
+                    {this.themeMode === 'dark' ? (
+                      <box-icon
+                        name="sun"
+                        color="green"
+                        class="cursor-pointer"
+                        onClick={this.changeThemeMode.bind(this)}
+                      ></box-icon>
+                    ) : (
+                      <box-icon
+                        name="moon"
+                        color="green"
+                        class="cursor-pointer"
+                        onClick={this.changeThemeMode.bind(this)}
+                      ></box-icon>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div class="px-4 sm:px-6 lg:px-8 my-4  ">
-                <div class="mb-10">
-                  <stacked-chart chartSeries={this.chartSeries}></stacked-chart>
+                <div class="px-4 sm:px-6 lg:px-8 my-4  ">
+                  <div class="mb-10">
+                    <stacked-chart chartSeries={this.chartSeries}></stacked-chart>
+                  </div>
+                  <div>
+                    <table-list list={this.list} listTitles={listTitles}></table-list>
+                  </div>
                 </div>
-                <div>
-                  <table-list list={this.list} listTitles={listTitles}></table-list>
-                </div>
-              </div>
-            </main>
+              </main>
+            </div>
           </div>
         </div>
-      </div>
+      </Host>
     );
   }
 }
