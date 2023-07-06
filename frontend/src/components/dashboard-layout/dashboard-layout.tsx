@@ -16,6 +16,20 @@ export class DashboardLayout {
   @State() updatingData: any = null;
   @State() newItem: any = null;
   @State() barControl: boolean = true;
+  @State() chartSeries: any[] = [
+    {
+      name: 'Category A',
+      data: [31, 40, 28, 51, 42, 109, 100, 28, 51],
+    },
+    {
+      name: 'Category B',
+      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
+    },
+    {
+      name: 'Category C',
+      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
+    },
+  ];
 
   componentWillRender() {
     fetch(urls.URL_EXPENSES)
@@ -143,7 +157,7 @@ export class DashboardLayout {
               </div>
               <div class="px-4 sm:px-6 lg:px-8 my-4  ">
                 <div class="mb-10">
-                  <stacked-chart></stacked-chart>
+                  <stacked-chart chartSeries={this.chartSeries}></stacked-chart>
                 </div>
                 <div>
                   <table-list list={this.list} listTitles={listTitles}></table-list>

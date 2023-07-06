@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, h } from '@stencil/core'; 
+import { Component, Host, Prop, State, h } from '@stencil/core';
 
 @Component({
   tag: 'stacked-chart',
@@ -7,27 +7,13 @@ import { Component, Host, Prop, State, h } from '@stencil/core';
 })
 export class StackedChart {
   @Prop() first: string = '';
-  @Prop() series: any[] = [
-    {
-      name: 'PRODUCT A',
-      data: [31, 40, 28, 51, 42, 109, 100,  28, 51],
-    },
-    {
-      name: 'PRODUCT B',
-      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
-    },
-    {
-      name: 'PRODUCT C',
-      data: [11, 32, 45, 32, 34, 52, 41, 45, 32],
-    },
-  ];
+  @Prop() chartSeries: any[] = [];
 
   @Prop() options: any = {
-    series: this.series,
     color: ['#6ab04c', '#2980b9'],
     chart: {
       background: 'transparent',
-      type: 'line', //bar, line
+      type: 'bar', //bar, line
       height: 350,
       stacked: true,
       toolbar: {
@@ -64,7 +50,7 @@ export class StackedChart {
             enabled: true,
             style: {
               fontSize: '13px',
-              fontWeight: 900, 
+              fontWeight: 900,
             },
           },
         },
@@ -93,32 +79,28 @@ export class StackedChart {
         color: '#263238', // '#263238',
       },
     },
-    // annotations: {
-    //   yaxis: [
-    //     {
-    //       y: 60,
-    //       borderColor: '#F00',
-    //       label: {
-    //         borderColor: '#F00',
-    //         style: {
-    //           color: '#fff',
-    //           background: '#F00',
-    //         },
-    //         text: 'Target',
-    //       },
-    //     },
-    //   ],
-    // },
+    annotations: {
+      yaxis: [
+        {
+          y: 60,
+          borderColor: '#F00',
+          label: {
+            borderColor: '#F00',
+            style: {
+              color: '#fff',
+              background: '#F00',
+            },
+            text: 'Target',
+          },
+        },
+      ],
+    },
   };
 
   render() {
     return (
       <div>
-        <apex-chart
-          type="bar"
-          series={this.series}
-          options={this.options}
-        />
+        <apex-chart type="line" series={this.chartSeries} options={this.options} />
       </div>
     );
   }
