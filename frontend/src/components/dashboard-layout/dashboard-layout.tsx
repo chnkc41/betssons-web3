@@ -51,6 +51,7 @@ export class DashboardLayout {
   @Listen('updateLinkItem', { target: 'body' })
   updateForm(event: CustomEvent<any>) {
     this.updatingData = event.detail;
+    this.barControl = true
   }
 
   // Add & update item
