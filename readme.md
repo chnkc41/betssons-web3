@@ -1,6 +1,5 @@
-# Raketech Frontend Interview
+# Betssons-Web3 Frontend Interview
 
-View Online [Demo](https://raketech-cihankoc.vercel.app/#/)
 
 ## Project setup for development - backend with express JS
 
