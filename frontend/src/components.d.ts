@@ -38,11 +38,6 @@ export namespace Components {
         "type": string;
         "value": string;
     }
-    interface MyComponent {
-        "first": string;
-        "last": string;
-        "middle": string;
-    }
     interface NewExpense {
         "updatingData": any;
     }
@@ -59,8 +54,6 @@ export namespace Components {
         "list": string[];
         "listTitles": string[];
         "userName": string;
-    }
-    interface ThemeMode {
     }
 }
 export interface NewExpenseCustomEvent<T> extends CustomEvent<T> {
@@ -90,12 +83,6 @@ declare global {
         prototype: HTMLInputFieldElement;
         new (): HTMLInputFieldElement;
     };
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
-    }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
-    };
     interface HTMLNewExpenseElement extends Components.NewExpense, HTMLStencilElement {
     }
     var HTMLNewExpenseElement: {
@@ -120,22 +107,14 @@ declare global {
         prototype: HTMLTableListElement;
         new (): HTMLTableListElement;
     };
-    interface HTMLThemeModeElement extends Components.ThemeMode, HTMLStencilElement {
-    }
-    var HTMLThemeModeElement: {
-        prototype: HTMLThemeModeElement;
-        new (): HTMLThemeModeElement;
-    };
     interface HTMLElementTagNameMap {
         "button-field": HTMLButtonFieldElement;
         "dashboard-layout": HTMLDashboardLayoutElement;
         "input-field": HTMLInputFieldElement;
-        "my-component": HTMLMyComponentElement;
         "new-expense": HTMLNewExpenseElement;
         "no-data": HTMLNoDataElement;
         "stacked-chart": HTMLStackedChartElement;
         "table-list": HTMLTableListElement;
-        "theme-mode": HTMLThemeModeElement;
     }
 }
 declare namespace LocalJSX {
@@ -171,11 +150,6 @@ declare namespace LocalJSX {
         "type"?: string;
         "value"?: string;
     }
-    interface MyComponent {
-        "first"?: string;
-        "last"?: string;
-        "middle"?: string;
-    }
     interface NewExpense {
         "onUpdateListItem"?: (event: NewExpenseCustomEvent<any>) => void;
         "updatingData"?: any;
@@ -196,18 +170,14 @@ declare namespace LocalJSX {
         "onUpdateLinkItem"?: (event: TableListCustomEvent<any>) => void;
         "userName"?: string;
     }
-    interface ThemeMode {
-    }
     interface IntrinsicElements {
         "button-field": ButtonField;
         "dashboard-layout": DashboardLayout;
         "input-field": InputField;
-        "my-component": MyComponent;
         "new-expense": NewExpense;
         "no-data": NoData;
         "stacked-chart": StackedChart;
         "table-list": TableList;
-        "theme-mode": ThemeMode;
     }
 }
 export { LocalJSX as JSX };
@@ -217,12 +187,10 @@ declare module "@stencil/core" {
             "button-field": LocalJSX.ButtonField & JSXBase.HTMLAttributes<HTMLButtonFieldElement>;
             "dashboard-layout": LocalJSX.DashboardLayout & JSXBase.HTMLAttributes<HTMLDashboardLayoutElement>;
             "input-field": LocalJSX.InputField & JSXBase.HTMLAttributes<HTMLInputFieldElement>;
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "new-expense": LocalJSX.NewExpense & JSXBase.HTMLAttributes<HTMLNewExpenseElement>;
             "no-data": LocalJSX.NoData & JSXBase.HTMLAttributes<HTMLNoDataElement>;
             "stacked-chart": LocalJSX.StackedChart & JSXBase.HTMLAttributes<HTMLStackedChartElement>;
             "table-list": LocalJSX.TableList & JSXBase.HTMLAttributes<HTMLTableListElement>;
-            "theme-mode": LocalJSX.ThemeMode & JSXBase.HTMLAttributes<HTMLThemeModeElement>;
         }
     }
 }

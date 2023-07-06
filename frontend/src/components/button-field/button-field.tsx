@@ -1,4 +1,4 @@
-import { Component, Host, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import { CONTROL_SIZES, SIZES } from '../../constants/constant';
 import classNames from 'classnames';
 

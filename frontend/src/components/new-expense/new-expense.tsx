@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Prop, State, Watch, h } from '@stencil/core';
 import { urls, initialExpensesForm, initialExpensesErrorForm } from '../../constants/constant';
 import axios from 'axios';
 import Toastify from 'toastify-js';
@@ -33,7 +33,6 @@ export class NewExpense {
   } = initialExpensesErrorForm;
 
   componentDidLoad() {
-    console.log(this.updatingData);
     this.formModel.id = String(Math.floor(Math.random() * 99999999));
   }
 

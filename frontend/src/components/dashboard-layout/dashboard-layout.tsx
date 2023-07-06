@@ -1,4 +1,4 @@
-import { Component, Host, Prop, Listen, h, State, Watch, Element } from '@stencil/core';
+import { Component, Host, Listen, h, State, Element } from '@stencil/core';
 import { urls, listTitles } from '../../constants/constant';
 import axios from 'axios';
 import Toastify from 'toastify-js';
@@ -66,7 +66,6 @@ export class DashboardLayout {
   // Delete Item
   @Listen('deleteItem', { target: 'body' })
   onDeleteClick(event: CustomEvent<any>) {
-    console.log(event.detail);
     if (!event.detail.id) {
       return;
     }
@@ -125,7 +124,6 @@ export class DashboardLayout {
   }
 
   sideBarControl() {
-    console.log(this.barControl);
     this.barControl = !this.barControl;
   }
 
