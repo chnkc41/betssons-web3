@@ -129,8 +129,7 @@ export class StackedChart {
   }
 
   @Watch('themeMode')
-  watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
-    console.log(newValue);
+  watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) { 
     this.updateChartThemeMode()
   }
 
