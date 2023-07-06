@@ -170,7 +170,7 @@ export class DashboardLayout {
                     <box-icon
                       name="menu"
                       color="green"
-                      class="cursor-pointer "
+                      class="cursor-pointer"
                       onClick={this.sideBarControl.bind(this)}
                     ></box-icon>
                   </div>

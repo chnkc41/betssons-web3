@@ -56,11 +56,13 @@ export class TableList {
               <box-icon
                 name="edit-alt"
                 color="green"
+                class="cursor-pointer"
                 onClick={() => this.onUpdateLinkClick(row)}
               ></box-icon>
               <box-icon
                 name="trash"
                 color="red"
+                class="cursor-pointer"
                 onClick={() => this.onDeleteLinkClick(row)}
               ></box-icon>
             </span>
