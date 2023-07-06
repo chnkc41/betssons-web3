@@ -123,9 +123,18 @@ export class StackedChart {
     },
   };
 
+  componentWillLoad() {
+    this.updateChartThemeMode()
+    
+  }
+
   @Watch('themeMode')
   watchPropHandler(newValue: boolean, oldValue: boolean, propName: string) {
     console.log(newValue);
+    this.updateChartThemeMode()
+  }
+
+  updateChartThemeMode() {
     this.options = {
       ...this.options,
       theme: { mode: this.themeMode },
